@@ -214,5 +214,6 @@ button:hover {
 @media (max-width: 480px) {
   article {
     border-radius: 0;
+    width: 100%;
   }
 }
