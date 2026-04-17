@@ -1,9 +1,3 @@
-const state = {
-  status: "Pending",
-  priority: "High",
-  dueDate: new Date("2026-04-17T23:59:00Z"),
-};
-
 const timeEl = document.querySelector(
   '[data-testid="test-todo-time-remaining"]',
 );
@@ -55,6 +49,14 @@ const priorityIndicator = document.querySelector(
   '[data-testid="test-todo-priority-indicator"]',
 );
 
+const dueDateEl = document.querySelector('[data-testid="test-todo-due-date"]');
+
+const state = {
+  status: "Pending",
+  priority: "High",
+  dueDate: new Date("2026-04-17T23:59:00"),
+};
+
 function syncStatus(status) {
   state.status = status;
   checkbox.checked = status === "Done";
@@ -94,6 +96,15 @@ function updateTime() {
   else timeEl.textContent = `Due in ${Math.round(mins / 1440)} days`;
 }
 
+function updateDueDate() {
+  dueDateEl.textContent = state.dueDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+updateDueDate();
 updateTime();
 setInterval(updateTime, 60000);
 
@@ -167,6 +178,7 @@ saveBtn.addEventListener("click", () => {
     state.dueDate = new Date("2026-04-17T23:59:00Z");
   }
 
+  updateDueDate();
   updateTime();
 
   hideEditMode();
